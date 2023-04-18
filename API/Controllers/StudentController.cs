@@ -1,3 +1,4 @@
+using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
@@ -15,6 +16,57 @@ namespace API.Controllers
         {
             _service = service;
             _repo = repo;
+        }
+        [HttpPost]
+        public async Task<ActionResult<Student>> AddStudent(Student student)
+        {
+            try
+            {
+                return await _repo.AddStudent(student);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Student>> GetStudentByID(int id)
+        {
+            try
+            {
+                return await _repo.GetStudentByID(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<Student>>> GetStudenti()
+        {
+            try
+            {
+                var students = await _repo.GetStudenti();
+                if(students.Count<1)
+                    return BadRequest("Nema studenta");
+                return Ok(students);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete]
+        public async Task<ActionResult<Student>> RemoveStudent(Student student)
+        {
+            try
+            {
+                return await _repo.RemoveStudent(student);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
