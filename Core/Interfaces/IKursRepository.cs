@@ -8,10 +8,10 @@ namespace Core.Interfaces
 {
     public interface IKursRepository
     {
-        Task<Kurs> GetKursByID(int id);
-        Task<IReadOnlyList<Kurs>> GetKursevi();
-        void AddKurs(Kurs kurs);
-        void UpdateKurs(Kurs kurs);
-        void RemoveKurs(Kurs kurs);
+        public Task<Kurs> GetKursByID(int id);
+        public Task<IReadOnlyList<Kurs>> GetKursevi();
+        public Task AddKurs(Kurs kurs);
+        public Task UpdateKurs(Kurs kurs);
+        public Task RemoveKurs(Kurs kurs);
     }
 }

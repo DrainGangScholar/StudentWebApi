@@ -7,8 +7,8 @@ namespace Core.Interfaces
         Task<StudentKurs> GetStudentKursByID(int id);
         Task<IReadOnlyList<StudentKurs>> GetStudentKursByStudentID(int id);
         Task<IReadOnlyList<StudentKurs>> GetStudentKursByKursID(int id);
-        void AddStudentKurs(StudentKurs studentKurs);
-        void UpdateStudentKurs(StudentKurs studentKurs);
-        void RemoveStudentKursByID(int id);
+        Task AddStudentKurs(StudentKurs studentKurs);
+        Task UpdateOcena(StudentKurs studentKurs);
+        Task RemoveStudentKurs(StudentKurs studentKurs);
     }
 }
