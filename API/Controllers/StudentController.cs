@@ -11,11 +11,13 @@ namespace API.Controllers
     {
         private readonly IStudentService _service;
         private readonly IStudentRepository _repo;
+        private readonly IStudentKursRepository _repoStudentKurs;
 
-        public StudentController(IStudentService service, IStudentRepository repo)
+        public StudentController(IStudentService service, IStudentRepository repo, IStudentKursRepository repoStudentKurs)
         {
             _service = service;
             _repo = repo;
+            _repoStudentKurs = repoStudentKurs;
         }
         [HttpPost]
         public async Task<ActionResult> AddStudent(Student student)
@@ -47,10 +49,10 @@ namespace API.Controllers
         {
             try
             {
-                var students = await _repo.GetStudenti();
-                if (students.Count < 1)
+                var studenti = await _repo.GetStudenti();
+                if (studenti.Count < 1)
                     return BadRequest("Nema studenta");
-                return Ok(students);
+                return Ok(studenti);
             }
             catch (Exception ex)
             {
@@ -62,6 +64,7 @@ namespace API.Controllers
         {
             try
             {
+                await _repoStudentKurs.RemoveStudentKursByStudentID(student.ID);
                 await _repo.RemoveStudent(student);
                 return NoContent();
             }

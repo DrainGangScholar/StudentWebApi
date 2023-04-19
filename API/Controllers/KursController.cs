@@ -11,11 +11,14 @@ namespace API.Controllers
     {
         private readonly IKursService _service;
         private readonly IKursRepository _repo;
+        private readonly IStudentKursRepository _repoStudentKurs;
 
-        public KursController(IKursService service, IKursRepository repo)
+
+        public KursController(IKursService service, IKursRepository repo, IStudentKursRepository repoStudentKurs)
         {
             _service = service;
             _repo = repo;
+            _repoStudentKurs = repoStudentKurs;
         }
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Kurs>>> GetKursevi()
@@ -49,6 +52,7 @@ namespace API.Controllers
         {
             try
             {
+                await _repoStudentKurs.RemoveStudentKursByKursID(kurs.ID);
                 await _repo.RemoveKurs(kurs);
                 return NoContent();
             }

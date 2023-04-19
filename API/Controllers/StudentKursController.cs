@@ -10,11 +10,16 @@ namespace API.Controllers
     {
         private readonly IStudentKursService _service;
         private readonly IStudentKursRepository _repo;
+        private readonly IStudentRepository _repoStudent;
+        private readonly IKursRepository _repoKurs;
 
-        public StudentKursController(IStudentKursService service, IStudentKursRepository repo)
+        public StudentKursController(IStudentKursService service, IStudentKursRepository repo,
+        IStudentRepository repoStudent,IKursRepository repoKurs)
         {
             _service = service;
             _repo = repo;
+            _repoStudent=repoStudent;
+            _repoKurs=repoKurs;
         }
     }
 }

@@ -20,25 +20,38 @@ namespace Infrastructure.Repositories
 
         public async Task<IReadOnlyList<StudentKurs>> GetStudentKursByStudentID(int id)
         {
-            return await _context.PohadjaniKursevi.Where(p=>p.Student.ID==id).ToListAsync();
+            return await _context.PohadjaniKursevi.Where(p => p.Student.ID == id).ToListAsync();
         }
         public async Task<IReadOnlyList<StudentKurs>> GetStudentKursByKursID(int id)
         {
-            return await _context.PohadjaniKursevi.Where(p=>p.Kurs.ID==id).ToListAsync();
+            return await _context.PohadjaniKursevi.Where(p => p.Kurs.ID == id).ToListAsync();
         }
         public async Task RemoveStudentKurs(StudentKurs studentKurs)
         {
             _context.PohadjaniKursevi.Remove(studentKurs);
             await _context.SaveChangesAsync();
         }
+        public async Task RemoveStudentKursByKursID(int id)
+        {
+            var pohadjaniKursevi= await _context.PohadjaniKursevi.Where(p=>p.Kurs.ID==id).ToListAsync();
+            _context.PohadjaniKursevi.RemoveRange(pohadjaniKursevi);
+            await _context.SaveChangesAsync();
+        }
+        public async Task RemoveStudentKursByStudentID(int id)
+        {
+            var pohadjaniKursevi= await _context.PohadjaniKursevi.Where(p=>p.Student.ID==id).ToListAsync();
+            _context.PohadjaniKursevi.RemoveRange(pohadjaniKursevi);
+            await _context.SaveChangesAsync();
+        }
 
-        public async Task UpdateOcena(StudentKurs studentKurs)
+
+        public async Task UpdateOcena(StudentKurs studentKurs,int ocena)
         {
             var _studentKurs = await _context.PohadjaniKursevi.FindAsync(studentKurs.ID);
 
             if (_studentKurs != null)
             {
-                _studentKurs.Ocena=studentKurs.Ocena;
+                _studentKurs.Ocena = ocena;
                 _context.PohadjaniKursevi.Update(_studentKurs);
                 await _context.SaveChangesAsync();
             }
