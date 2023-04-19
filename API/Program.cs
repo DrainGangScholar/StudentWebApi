@@ -15,9 +15,18 @@ builder.Services.AddScoped<IKursRepository, KursRepository>();
 builder.Services.AddScoped<IStudentKursRepository, StudentKursRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowLocalhost7069", builder =>
+        {
+            builder.WithOrigins("http://localhost:7069")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
