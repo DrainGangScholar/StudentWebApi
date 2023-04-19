@@ -58,7 +58,7 @@ namespace API.Controllers
             }
         }
         [HttpDelete]
-        public async Task<ActionResult> RemoveStudent(Student student)
+        public async Task<ActionResult> RemoveStudent(Student student)//treba da brise i sve studentkurs u kojima se nalazi
         {
             try
             {
