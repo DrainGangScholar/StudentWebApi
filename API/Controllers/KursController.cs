@@ -33,11 +33,37 @@ namespace API.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Kurs>> GetKursById(int id)
+        public async Task<ActionResult<Kurs>> GetKurs(int id)
         {
             try
             {
                 return Ok(await _repo.GetKursByID(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete]
+        public async Task<ActionResult> RemoveKurs(Kurs kurs)
+        {
+            try
+            {
+                await _repo.RemoveKurs(kurs);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddKurs(Kurs kurs)
+        {
+            try
+            {
+                await _repo.AddKurs(kurs);
+                return Ok("Uspesno dodat Kurs");
             }
             catch (Exception ex)
             {

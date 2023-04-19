@@ -22,11 +22,10 @@ namespace Infrastructure.Repositories
             return await _context.Studenti.ToListAsync();
         }
 
-        public async Task<Student> RemoveStudent(Student student)
+        public async Task RemoveStudent(Student student)
         {
             _context.Studenti.Remove(student);
             await _context.SaveChangesAsync();
-            return student;
         }
 
         public async Task UpdateStudent(Student student)
@@ -34,11 +33,10 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }//PROVERI
 
-        public async Task<Student> AddStudent(Student student)
+        public async Task AddStudent(Student student)
         {
             await _context.Studenti.AddAsync(student);
             await _context.SaveChangesAsync();
-            return student;
         }
     }
 }

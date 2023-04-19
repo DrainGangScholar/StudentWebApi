@@ -18,11 +18,12 @@ namespace API.Controllers
             _repo = repo;
         }
         [HttpPost]
-        public async Task<ActionResult<Student>> AddStudent(Student student)
+        public async Task<ActionResult> AddStudent(Student student)
         {
             try
             {
-                return await _repo.AddStudent(student);
+                await _repo.AddStudent(student);
+                return Ok("Uspesno dodat Student");
             }
             catch (Exception ex)
             {
@@ -47,7 +48,7 @@ namespace API.Controllers
             try
             {
                 var students = await _repo.GetStudenti();
-                if(students.Count<1)
+                if (students.Count < 1)
                     return BadRequest("Nema studenta");
                 return Ok(students);
             }
@@ -57,11 +58,12 @@ namespace API.Controllers
             }
         }
         [HttpDelete]
-        public async Task<ActionResult<Student>> RemoveStudent(Student student)
+        public async Task<ActionResult> RemoveStudent(Student student)
         {
             try
             {
-                return await _repo.RemoveStudent(student);
+                await _repo.RemoveStudent(student);
+                return NoContent();
             }
             catch (Exception ex)
             {

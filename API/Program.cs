@@ -15,9 +15,9 @@ builder.Services.AddDbContext<SWAContext>(option =>
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IKursRepository, KursRepository>();
 builder.Services.AddScoped<IStudentKursRepository, StudentKursRepository>();
-builder.Services.AddScoped<IStudentService,StudentService>();
-builder.Services.AddScoped<IKursService,KursService>();
-builder.Services.AddScoped<IStudentKursService,StudentKursService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IKursService, KursService>();
+builder.Services.AddScoped<IStudentKursService, StudentKursService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,5 +38,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<SWAContext>();
+DbInitializer.Initialize(context);
 
 app.Run();
