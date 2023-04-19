@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
@@ -52,8 +53,8 @@ namespace Infrastructure.Data
             // Seed StudentKursevi table
             if (!context.PohadjaniKursevi.Any())
             {
-                var students = context.Studenti.ToList();
-                var kursevi = context.Kursevi.ToList();
+                var students = await context.Studenti.ToListAsync();
+                var kursevi = await context.Kursevi.ToListAsync();
 
                 var studentKursevi = new List<StudentKurs>
                 {

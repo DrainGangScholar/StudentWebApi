@@ -2,6 +2,8 @@ using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Services.Implementations;
+using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,17 +15,19 @@ builder.Services.AddDbContext<SWAContext>(option =>
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IKursRepository, KursRepository>();
 builder.Services.AddScoped<IStudentKursRepository, StudentKursRepository>();
+builder.Services.AddScoped(typeof(IStudentKursService), typeof(StudentKursService));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("AllowLocalhost7069", builder =>
+{
+    options.AddDefaultPolicy(
+        policy =>
         {
-            builder.WithOrigins("http://localhost:7069")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+            policy.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
         });
-    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,12 +42,20 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<SWAContext>();
 DbInitializer.Initialize(context);
 
 app.Run();
+

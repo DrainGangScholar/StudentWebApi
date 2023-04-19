@@ -12,16 +12,18 @@ namespace Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task AddStudentKurs(StudentKurs studentKurs)
+        public async Task<int> AddStudentKurs(StudentKurs studentKurs)
         {
             await _context.PohadjaniKursevi.AddAsync(studentKurs);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<IReadOnlyList<StudentKurs>> GetStudentKursByStudentID(int id)
         {
             return await _context.PohadjaniKursevi.Where(p => p.Student.ID == id).ToListAsync();
         }
+
+
         public async Task<IReadOnlyList<StudentKurs>> GetStudentKursByKursID(int id)
         {
             return await _context.PohadjaniKursevi.Where(p => p.Kurs.ID == id).ToListAsync();
@@ -33,19 +35,19 @@ namespace Infrastructure.Repositories
         }
         public async Task RemoveStudentKursByKursID(int id)
         {
-            var pohadjaniKursevi= await _context.PohadjaniKursevi.Where(p=>p.Kurs.ID==id).ToListAsync();
+            var pohadjaniKursevi = await _context.PohadjaniKursevi.Where(p => p.Kurs.ID == id).ToListAsync();
             _context.PohadjaniKursevi.RemoveRange(pohadjaniKursevi);
             await _context.SaveChangesAsync();
         }
         public async Task RemoveStudentKursByStudentID(int id)
         {
-            var pohadjaniKursevi= await _context.PohadjaniKursevi.Where(p=>p.Student.ID==id).ToListAsync();
+            var pohadjaniKursevi = await _context.PohadjaniKursevi.Where(p => p.Student.ID == id).ToListAsync();
             _context.PohadjaniKursevi.RemoveRange(pohadjaniKursevi);
             await _context.SaveChangesAsync();
         }
 
 
-        public async Task UpdateOcena(StudentKurs studentKurs,int ocena)
+        public async Task UpdateOcena(StudentKurs studentKurs, int ocena)
         {
             var _studentKurs = await _context.PohadjaniKursevi.FindAsync(studentKurs.ID);
 
@@ -61,5 +63,13 @@ namespace Infrastructure.Repositories
         {
             return await _context.PohadjaniKursevi.FindAsync(id);
         }
+        public async Task<IReadOnlyList<StudentKurs>> GetStudentKursevi()
+        {
+            return await _context.PohadjaniKursevi
+                .Include(sk => sk.Student)
+                .Include(sk => sk.Kurs)
+                .ToListAsync();
+        }
+
     }
 }

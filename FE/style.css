@@ -1,0 +1,13 @@
+/* select {
+    display: block;
+    margin-bottom: 10px;
+} */
+form>* {
+    display: block;
+    margin-bottom: 10px;
+}
+
+table td,
+table th {
+    border: 1px solid green;
+}

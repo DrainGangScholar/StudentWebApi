@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,8 +17,8 @@ namespace API.Controllers
             _repo = repo;
             _repoStudentKurs = repoStudentKurs;
         }
-        [HttpPost]
-        public async Task<ActionResult> AddStudent(Student student)
+        [HttpPost("addstudent")]
+        public async Task<ActionResult> AddStudent([FromBody] Student student)
         {
             try
             {
@@ -29,7 +30,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("getstudent/{id}")]
         public async Task<ActionResult<Student>> GetStudentByID(int id)
         {
             try
@@ -41,7 +42,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet]
+        [HttpGet("getstudenti")]
         public async Task<ActionResult<IReadOnlyList<Student>>> GetStudenti()
         {
             try
@@ -56,7 +57,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete]
+        [HttpDelete("removestudent")]
         public async Task<ActionResult> RemoveStudent(Student student)//treba da brise i sve studentkurs u kojima se nalazi
         {
             try
