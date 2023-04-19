@@ -35,14 +35,14 @@ namespace Infrastructure.Data
             {
                 var studenti = new List<Student>
                 {
-                    new Student { Ime = "John", Prezime = "Doe", Adresa = "123 Main Street", Grad = "New York", Drzava = "USA", DatumRodjenja = DateTime.Parse("2000-01-01"), Pol = false },
-                    new Student { Ime = "Jane", Prezime = "Doe", Adresa = "456 Elm Street", Grad = "Los Angeles", Drzava = "USA", DatumRodjenja = DateTime.Parse("2001-02-02"), Pol = true },
-                    new Student { Ime = "Mark", Prezime = "Smith", Adresa = "789 Oak Street", Grad = "Chicago", Drzava = "USA", DatumRodjenja = DateTime.Parse("1999-03-03"), Pol = false },
-                    new Student { Ime = "Mary", Prezime = "Johnson", Adresa = "101 Maple Street", Grad = "Boston", Drzava = "USA", DatumRodjenja = DateTime.Parse("2002-04-04"), Pol = true },
-                    new Student { Ime = "David", Prezime = "Lee", Adresa = "345 Pine Street", Grad = "San Francisco", Drzava = "USA", DatumRodjenja = DateTime.Parse("1998-05-05"), Pol = false },
-                    new Student { Ime = "Sarah", Prezime = "Williams", Adresa = "567 Cedar Street", Grad = "Seattle", Drzava = "USA", DatumRodjenja = DateTime.Parse("2003-06-06"), Pol = true },
-                    new Student { Ime = "James", Prezime = "Brown", Adresa = "890 Walnut Street", Grad = "Dallas", Drzava = "USA", DatumRodjenja = DateTime.Parse("1997-07-07"), Pol = false },
-                    new Student { Ime = "Linda", Prezime = "Davis", Adresa = "234 Cherry Street", Grad = "Houston", Drzava = "USA", DatumRodjenja = DateTime.Parse("2004-08-08"), Pol = true }
+                    new Student { Ime = "John", Prezime = "Doe", Adresa = "123 Main Street", Grad = "New York", Drzava = "USA", DatumRodjenja = DateTime.Parse("2000-01-01"), Pol = 0 },
+                    new Student { Ime = "Jane", Prezime = "Doe", Adresa = "456 Elm Street", Grad = "Los Angeles", Drzava = "USA", DatumRodjenja = DateTime.Parse("2001-02-02"), Pol = 1 },
+                    new Student { Ime = "Mark", Prezime = "Smith", Adresa = "789 Oak Street", Grad = "Chicago", Drzava = "USA", DatumRodjenja = DateTime.Parse("1999-03-03"), Pol = 0 },
+                    new Student { Ime = "Mary", Prezime = "Johnson", Adresa = "101 Maple Street", Grad = "Boston", Drzava = "USA", DatumRodjenja = DateTime.Parse("2002-04-04"), Pol = 1 },
+                    new Student { Ime = "David", Prezime = "Lee", Adresa = "345 Pine Street", Grad = "San Francisco", Drzava = "USA", DatumRodjenja = DateTime.Parse("1998-05-05"), Pol = 0 },
+                    new Student { Ime = "Sarah", Prezime = "Williams", Adresa = "567 Cedar Street", Grad = "Seattle", Drzava = "USA", DatumRodjenja = DateTime.Parse("2003-06-06"), Pol = 1 },
+                    new Student { Ime = "James", Prezime = "Brown", Adresa = "890 Walnut Street", Grad = "Dallas", Drzava = "USA", DatumRodjenja = DateTime.Parse("1997-07-07"), Pol = 0 },
+                    new Student { Ime = "Linda", Prezime = "Davis", Adresa = "234 Cherry Street", Grad = "Houston", Drzava = "USA", DatumRodjenja = DateTime.Parse("2004-08-08"), Pol = 1 }
                 };
                 context.Studenti.AddRange(studenti);
                 context.SaveChanges();
