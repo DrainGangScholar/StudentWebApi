@@ -45,17 +45,11 @@ namespace API.Controllers
             }
         }
         [HttpPost("addocena")]
-        public async Task<ActionResult> AddOcena(Student student, Kurs kurs, int ocena)
+        public async Task<ActionResult> AddOcena(StudentKurs studentKurs)
         {
             try
             {
-                if (await _repo.AddStudentKurs(new StudentKurs
-                {
-                    ID = 0,
-                    Student = student,
-                    Kurs = kurs,
-                    Ocena = ocena
-                }) != 0)
+                if (await _repo.AddStudentKurs(studentKurs) != 0)
                 {
                     return BadRequest("Greska pri dodavanju");
                 }
@@ -72,6 +66,32 @@ namespace API.Controllers
             var kursevi = await _repo.GetStudentKursByKursID(id);
             var ocene = kursevi.Select(p => p.Ocena).ToList();
             return _service.ProsecnaOcena(ocene);
+        }
+        [HttpDelete]
+        public async Task<ActionResult> IzbrisiStudentKurs(int id)
+        {
+            try
+            {
+                await _repo.RemoveStudentKursByKursID(id);
+                return Ok("Uspesno izbrisan StudentKurs");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateOcena(int id, int ocena)
+        {
+            try
+            {
+                await _repo.UpdateOcena(id, ocena);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Core.Entities;
 
 namespace Core.BaseEntities
 {
@@ -13,6 +15,8 @@ namespace Core.BaseEntities
         public string Sifra { get; set; }
         public string Ime { get; set; }
         public string Opis { get; set; }
+        [JsonIgnore]
+        public List<StudentKurs> PohadjaniKursevi { get; set; } = new List<StudentKurs>();
 
     }
 }

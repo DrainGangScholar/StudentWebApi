@@ -47,17 +47,17 @@ namespace Infrastructure.Repositories
         }
 
 
-        public async Task UpdateOcena(StudentKurs studentKurs, int ocena)
+        public async Task UpdateOcena(int id, int ocena)
         {
-            var _studentKurs = await _context.PohadjaniKursevi.FindAsync(studentKurs.ID);
+            var studentKurs = await _context.PohadjaniKursevi.FindAsync(id);
 
-            if (_studentKurs != null)
+            if (studentKurs != null)
             {
-                _studentKurs.Ocena = ocena;
-                _context.PohadjaniKursevi.Update(_studentKurs);
+                studentKurs.Ocena = ocena;
+                _context.PohadjaniKursevi.Update(studentKurs);
                 await _context.SaveChangesAsync();
             }
-        }//PROVERI
+        }
 
         public async Task<StudentKurs> GetStudentKursByID(int id)
         {
