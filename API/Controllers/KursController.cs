@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
 
 namespace API.Controllers
 {
@@ -9,17 +8,15 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class KursController : ControllerBase
     {
-        private readonly IKursService _service;
         private readonly IKursRepository _repo;
         private readonly IStudentKursRepository _repoStudentKurs;
 
-
-        public KursController(IKursService service, IKursRepository repo, IStudentKursRepository repoStudentKurs)
+        public KursController(IKursRepository repo, IStudentKursRepository repoStudentKurs)
         {
-            _service = service;
             _repo = repo;
             _repoStudentKurs = repoStudentKurs;
         }
+
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Kurs>>> GetKursevi()
         {
@@ -35,6 +32,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Kurs>> GetKurs(int id)
         {
@@ -47,6 +45,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete]
         public async Task<ActionResult> RemoveKurs(Kurs kurs)//treba da brise i sve studentkurs u kojima se nalazi
         {
@@ -61,6 +60,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> AddKurs(Kurs kurs)
         {

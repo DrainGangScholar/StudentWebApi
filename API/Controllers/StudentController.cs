@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
 
 namespace API.Controllers
 {
@@ -9,13 +8,11 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentService _service;
         private readonly IStudentRepository _repo;
         private readonly IStudentKursRepository _repoStudentKurs;
 
-        public StudentController(IStudentService service, IStudentRepository repo, IStudentKursRepository repoStudentKurs)
+        public StudentController(IStudentRepository repo, IStudentKursRepository repoStudentKurs)
         {
-            _service = service;
             _repo = repo;
             _repoStudentKurs = repoStudentKurs;
         }
